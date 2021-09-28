@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-class MovieDataSet{
+class Movies{
 
     int i = 0, n;
     Scanner sc;
@@ -23,10 +23,10 @@ class MovieDataSet{
             sc = new Scanner(obj);
             n = num;
             while (sc.hasNextLine() & i < n) {
-                String[] line = sc.nextLine().split("\t", 0);    
+                String[] line = sc.nextLine().split(",", 0);    
                 titleId.add(line[0]);
                 title.add(line[2]);
-                genre.add(line[8]);
+                genre.add(line[3]);
                 i++; 
             }
             sc.close();
@@ -44,13 +44,24 @@ class MovieDataSet{
     }
 }
 
+class PopularMovies extends Movies{
+    void display_popular() {
+
+    }
+}
+
+class RecentReleases extends Movies{
+    void dislay_recent(){
+
+    }
+}
 
 
 public class Main {
     public static void main(String[] args) {
-        String filePath = "C:/Users/devas/Desktop/title.basics.tsv/data.tsv";
-        MovieDataSet d1 = new MovieDataSet();
-        d1.readFile(filePath, 20);
+        String filePath = "C:/Users/devas/Desktop/sem3/OOPs/movie-recommendation-system-java/movies_data.csv";
+        Movies d1 = new Movies();
+        d1.readFile(filePath, 1);
         d1.display();
     }
 }
