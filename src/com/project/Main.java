@@ -20,14 +20,14 @@ class Movies{
     ArrayList<String> director = new ArrayList<>();
     ArrayList<String> url = new ArrayList<>();
 
-    void readFile(String filePath, int num){
+    void readFile(String filePath, int n){      // function to read the data file and storing it in arraylists
         try{
             obj = new File(filePath);
-            // System.out.println("obj created");
+            // object created to read the data file
             sc = new Scanner(obj);
-            n = num;
+            this.n = n;
             sc.nextLine();
-            while (sc.hasNextLine() & i < n) {
+            while (sc.hasNextLine() & i < this.n) {
                 String[] line = sc.nextLine().split(",", 0);  
                 movieId.add(i+1);
                 title.add(line[0]);
@@ -46,14 +46,21 @@ class Movies{
         }
     }
 
-    void display(){
+    void displayAll(){                          // function to list all the available movies
         for(int i=0; i<n; i++){
             System.out.print(movieId.get(i)+ ". " + title.get(i));
             System.out.println();
         }
     }
 
-    void viewMovie(int no){
+
+    void displayByYear(int y){
+        for(int i=0; i<n; i++){
+            
+        }
+    }
+
+    void viewMovie(int no){                     // function to display the movie details
         System.out.println("\nDetails:");
         System.out.println("Title - " + title.get(no) + "\tYear - " + year.get(no));
         System.out.println("Directed By - " + director.get(no));
@@ -63,7 +70,8 @@ class Movies{
     }
 }
 
-class PopularMovies extends Movies{
+
+class PopularMovies extends Movies{             // using inheritance 
     Movies m;
     ArrayList<Double> rates;
     int temp;
@@ -90,7 +98,8 @@ class PopularMovies extends Movies{
     }
 }
 
-class RecentReleases extends Movies{
+
+class RecentReleases extends Movies{            // using inheritance 
     Movies m;
     ArrayList<Integer> years;
     ArrayList<Integer> movieNo;
@@ -146,43 +155,43 @@ public class Main {
         Movies m1 = new Movies();
         m1.readFile(filePath, fileSize-1);
 
-        // initialising
+        // initialising the objects
         PopularMovies p1 = new PopularMovies(m1);
         RecentReleases r1 = new RecentReleases(m1);
     
 
-        // the menu
+        // the start
         String ch = "n";
         int choice;
         Scanner sc = new Scanner(System.in);
         System.out.println("Movie Recommendation System");
 
-        do{
+        do{ // displaying the menu
             int movieN;
             System.out.println("\n1.Popular Films\n2.Recent Releases\n3.By Genre\n4.By Year\n5.All Movies\n0 - Exit");
             System.out.println("Enter a option to view movie list: ");
             choice = sc.nextInt();
 
             try {
-                switch (choice) {
+                switch (choice) {           // using switchcase to implement menu
                     case 1:
                         System.out.println("\nTop 5 Most popular movies:");
                         p1.displayPopular();
-                        System.out.println("Enter the movie number to view details:");
+                        System.out.println("\nEnter the movie number to view details:");
                         movieN = sc.nextInt();
                         p1.getMovie(movieN);
                         break;
                     case 2:
                         System.out.println("\nTop 5 Recent Releases:");
                         r1.dislayRecent();
-                        System.out.println("Enter the movie number to view details:");
+                        System.out.println("\nEnter the movie number to view details:");
                         movieN = sc.nextInt();
                         r1.getMovie(movieN);
                         break;
                     case 5:
                         System.out.println("\nAll the available movies:");
-                        m1.display();
-                        System.out.println("Enter the movie number to view details:");
+                        m1.displayAll();
+                        System.out.println("\nEnter the movie number to view details:");
                         movieN = sc.nextInt();
                         m1.viewMovie(movieN-1);
                         break;
@@ -195,15 +204,13 @@ public class Main {
             }
 
 
-            
-
 
             System.out.println("\nWant to continue exploring(Y/y): ");
             ch = sc.next();
 
         }while(ch.equalsIgnoreCase("y"));
 
-
+        System.out.println("Thank you!🙂");
         sc.close();
     }
 }
