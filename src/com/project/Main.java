@@ -7,7 +7,8 @@ import java.util.Collections;
 
 class Movies{
 
-    int i = 0, n;
+    int i = 0;
+    int n;
     Scanner sc;
     File obj;
     ArrayList<Integer> movieId = new ArrayList<>();
@@ -17,6 +18,7 @@ class Movies{
     ArrayList<String> genres = new ArrayList<>();
     ArrayList<Double> rating = new ArrayList<>();
     ArrayList<String> director = new ArrayList<>();
+    ArrayList<String> url = new ArrayList<>();
 
     void readFile(String filePath, int num){
         try{
@@ -34,6 +36,7 @@ class Movies{
                 genres.add(line[3]);
                 rating.add(Double.parseDouble(line[4]));
                 director.add(line[5]);
+                url.add(line[6]);
                 i++; 
             }
             sc.close();
@@ -50,12 +53,13 @@ class Movies{
         }
     }
 
-    void viewMovie(int n){
+    void viewMovie(int no){
         System.out.println("\nDetails:");
-        System.out.println("Title - " + title.get(n) + "\tYear - " + year.get(n));
-        System.out.println("Directed By - " + director.get(n));
-        System.out.println("Language - " + language.get(n) + "\tGenres - " + genres.get(n));
-        System.out.println("Rating - " + rating.get(n));
+        System.out.println("Title - " + title.get(no) + "\tYear - " + year.get(no));
+        System.out.println("Directed By - " + director.get(no));
+        System.out.println("Language - " + language.get(no) + "\tGenres - " + genres.get(no));
+        System.out.println("Rating - " + rating.get(no));
+        System.out.println("Watch Now - " + url.get(no));
     }
 }
 
@@ -78,17 +82,57 @@ class PopularMovies extends Movies{
         }
     }
 
-    void getMovie(int n){
-        n-=1;
-        temp = m.rating.indexOf(rates.get(n));
+    void getMovie(int no){
+        no-=1;
+        temp = m.rating.indexOf(rates.get(no));
         // System.out.println(temp);
         m.viewMovie(temp);
     }
 }
 
 class RecentReleases extends Movies{
-    void dislay_recent(){
+    Movies m;
+    ArrayList<Integer> years;
+    ArrayList<Integer> movieNo;
+    int temp;
 
+    RecentReleases(Movies m1){
+        m = m1;
+        movieNo = new ArrayList<>();
+        years = new ArrayList<>();
+
+        for(int i=0; i<m.n; i++){
+            temp = m.year.get(i);
+            if(!years.contains(temp)){
+                years.add(temp);
+            }
+        }
+        Collections.sort(years, Collections.reverseOrder());
+        // System.out.println(years.subList(0, 5));
+    }
+
+    void dislayRecent(){
+        int k=0;
+        for(int i=0; i<5; i++){
+            temp = years.get(i);
+            for(int j=0; j<m.n; j++){
+                if (m.year.get(j) == temp){
+                    movieNo.add(m.movieId.get(i));
+                    System.out.println(k+1 + "." + m.title.get(j) + " - " + m.year.get(j));
+                    k++;
+                }
+                if(k==5){
+                    break;
+                }
+            }
+        }
+    }
+
+    void getMovie(int no){
+        no-=1;
+        temp = movieNo.get(no);
+        // System.out.println(temp);
+        m.viewMovie(temp);
     }
 }
 
@@ -97,21 +141,23 @@ public class Main {
     public static void main(String[] args) {
 
         // loading the file
-        int fileSize = 14;
+        int fileSize = 19;
         String filePath = "movies_data.csv";
         Movies m1 = new Movies();
         m1.readFile(filePath, fileSize-1);
 
         // initialising
         PopularMovies p1 = new PopularMovies(m1);
+        RecentReleases r1 = new RecentReleases(m1);
+    
 
         // the menu
         String ch = "n";
+        int choice;
         Scanner sc = new Scanner(System.in);
         System.out.println("Movie Recommendation System");
 
         do{
-            int choice;
             int movieN;
             System.out.println("\n1.Popular Films\n2.Recent Releases\n3.By Genre\n4.By Year\n5.All Movies\n0 - Exit");
             System.out.println("Enter a option to view movie list: ");
@@ -125,6 +171,13 @@ public class Main {
                         System.out.println("Enter the movie number to view details:");
                         movieN = sc.nextInt();
                         p1.getMovie(movieN);
+                        break;
+                    case 2:
+                        System.out.println("\nTop 5 Recent Releases:");
+                        r1.dislayRecent();
+                        System.out.println("Enter the movie number to view details:");
+                        movieN = sc.nextInt();
+                        r1.getMovie(movieN);
                         break;
                     case 5:
                         System.out.println("\nAll the available movies:");
