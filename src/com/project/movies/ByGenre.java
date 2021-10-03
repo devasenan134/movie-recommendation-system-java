@@ -1,20 +1,19 @@
 package com.project.movies;
 
-import java.util.ArrayList;
 
-
-public class ByGenre extends Movies {
+public class ByGenre extends Movies {               // using inheritance 
     Movies m;
     int temp;
-    ArrayList<Integer> id;
     String[] user_genre;
     
     public ByGenre(Movies m1){
         m = m1;
-        id = new ArrayList<>();
     }
 
-    public void displayByGenre(String userGenre){      // function to list the movies based on the given genre
+
+    // function to list the movies based on the given genre
+    public void displayByGenre(String userGenre){    
+        // parsing the user input genres 
         userGenre = userGenre.toLowerCase();
         if(userGenre.contains(",")){
             user_genre = userGenre.split(",");
@@ -23,26 +22,24 @@ public class ByGenre extends Movies {
             user_genre[0] = userGenre;
         }
 
+        // getting only the movies having same genre as user input genre
         String movieGenre;
-        id.clear();
-        int k=1;
-        
+        m.resId.clear();                                //clearing the previous id list
         for(int i=0; i<m.n; i++){
             movieGenre = m.genres.get(i).toLowerCase();
             for(int j=0; j<user_genre.length; j++){
-                if(movieGenre.contains(user_genre[j]) && !id.contains(m.movieId.get(i))){
-                    System.out.print(k + ". " + m.title.get(i) + "\n");
-                    k++;
-                    id.add(m.movieId.get(i)); 
+                if(movieGenre.contains(user_genre[j]) && !m.resId.contains(m.movieId.get(i))){
+                    m.resId.add(m.movieId.get(i)); 
                 }
             }
         }
-    }
 
-    public void getMovie(int no){
-        no-=1;
-        temp = id.get(no)-1;
-        // System.out.println(id);
-        m.viewMovie(temp);
+        m.resId = m.sortRate(m.resId);
+
+        // displaying the movies list
+        for(int i=0; i<m.resId.size(); i++){
+            temp = m.resId.get(i)-1;
+            System.out.print((i+1) + ". " + m.title.get(temp) + "\n");
+        }
     }
 }

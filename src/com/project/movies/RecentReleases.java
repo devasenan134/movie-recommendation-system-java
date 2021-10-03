@@ -7,15 +7,14 @@ import java.util.Collections;
 public class RecentReleases extends Movies{          // using inheritance 
     Movies m;
     ArrayList<Integer> years;
-    ArrayList<Integer> id;
     int temp, recent;
 
     public RecentReleases(Movies m1){
         m = m1;
-        id = new ArrayList<>();
         years = new ArrayList<>();
-        recent = 5;
+        recent = 6;
 
+        // getting all years from the file and storing it in years list
         for(int i=0; i<m.n; i++){
             temp = m.year.get(i);
             if(!years.contains(temp)){
@@ -23,18 +22,19 @@ public class RecentReleases extends Movies{          // using inheritance
             }
         }
         Collections.sort(years, Collections.reverseOrder());
-        // System.out.println(years.subList(0, 5));
     }
 
+    // function to display recent released movies
     public void dislayRecent(){
+        m.resId.clear();                        //clearing the previous id list
         int k=0;
-        id.clear();
-        
+
+        // comparing the years of all movies in file with the years list
         for(int i=0; i<recent; i++){
             temp = years.get(i);
             for(int j=0; j<m.n; j++){
                 if (m.year.get(j) == temp){
-                    id.add(m.movieId.get(j));
+                    m.resId.add(m.movieId.get(j));
                     System.out.println(k+1 + "." + m.title.get(j) + " - " + m.year.get(j));
                     k++;
                 }
@@ -43,12 +43,5 @@ public class RecentReleases extends Movies{          // using inheritance
                 }
             }
         }
-    }
-
-    public void getMovie(int no){
-        no-=1;
-        temp = id.get(no)-1;
-        // System.out.println(id);
-        m.viewMovie(temp);
     }
 }

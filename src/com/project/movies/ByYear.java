@@ -1,34 +1,29 @@
 package com.project.movies;
 
-import java.util.ArrayList;
-
 
 public class ByYear extends Movies{
     Movies m;
     int temp;
-    ArrayList<Integer> id;
 
     public ByYear(Movies m1){
         m = m1;
-        id = new ArrayList<>();
     }
+
 
     public void displayByYear(int y){
-        id.clear();
-        int k=1;
+        m.resId.clear();                     //clearing the previous id list
         for(int i=0; i<m.n; i++){
             if(m.year.get(i) == y){
-                System.out.print(k + ". " + m.title.get(i) + "\n");
-                id.add(m.movieId.get(i));
-                k++;
+                m.resId.add(m.movieId.get(i));
             }
         }
-    }
 
-    public void getMovie(int no){
-        no -= 1;
-        temp = id.get(no)-1;
-        // System.out.println(id);
-        m.viewMovie(temp);
+        m.resId = m.sortRate(m.resId);
+
+        // displaying the movies list
+        for(int i=0; i<m.resId.size(); i++){
+            temp = m.resId.get(i)-1;
+            System.out.print((i+1) + ". " + m.title.get(temp) + "\n");
+        }
     }
 }
