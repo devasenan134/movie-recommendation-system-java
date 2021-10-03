@@ -12,21 +12,22 @@ import java.util.Scanner;
 public class Main {
 
     public static void viewRrate(Movies m1){
-        Scanner sc = new Scanner(System.in);
+        Scanner sc1 = new Scanner(System.in);
         Rating rr = new Rating(m1);
         int op, mn;
         
         System.out.println("\nPick a movie number");
-        mn = sc.nextInt();
+        mn = sc1.nextInt();
         
         System.out.println("\n1.New Movie? - View Information\n2.Already watched the movie? - Give your rating");
-        op = sc.nextInt();
+        op = sc1.nextInt();
 
         if(op==1){
             m1.viewMovie(mn);
         } else if(op==2){
             rr.setRate(mn);
         }
+        sc1.close();
     }
 
 
