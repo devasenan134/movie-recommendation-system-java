@@ -27,7 +27,6 @@ public class Main {
         } else if(op==2){
             rr.setRate(mn);
         }
-        sc1.close();
     }
 
 
