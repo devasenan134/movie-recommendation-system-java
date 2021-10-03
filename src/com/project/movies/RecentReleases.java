@@ -6,7 +6,7 @@ import java.util.Collections;
 
 public class RecentReleases extends Movies{          // using inheritance 
     Movies m;
-    ArrayList<Integer> years;
+    ArrayList<Integer> years;  
     int temp, recent;
 
     public RecentReleases(Movies m1){

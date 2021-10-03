@@ -17,14 +17,14 @@ interface Movie{
 
 public class Movies implements Movie{
     int i = 0;
-    int n;
-    Scanner sc;
+    public int n;
+    public Scanner sc;
     FileWriter fw;
     File obj;
 
     // initialising all the attributes in the file
     public ArrayList<Integer> movieId = new ArrayList<>();             
-     ArrayList<String> title = new ArrayList<>();
+    public ArrayList<String> title = new ArrayList<>();
     ArrayList<String> language = new ArrayList<>();
     ArrayList<Integer> year = new ArrayList<>();
     ArrayList<String> genres = new ArrayList<>();
@@ -64,7 +64,7 @@ public class Movies implements Movie{
     }
 
 
-     // function to list all the available movies
+    // function to list all the available movies
     public void displayAll(){                         
         resId.clear();                      //clearing the previous id list
         for(int i=0; i<n; i++){
@@ -95,7 +95,6 @@ public class Movies implements Movie{
         ArrayList<Double> y = new ArrayList<Double>();
         int tempi;
         double tempd;
-
         for(int i=0; i<x.size(); i++){
             y.add(rating.get(x.get(i)-1));
         }

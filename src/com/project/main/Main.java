@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void viewRrate(Movies m1){
-        Scanner sc1 = new Scanner(System.in);
+        Scanner sc1 = new Scanner(System.in); 
         Rating rr = new Rating(m1);
         int op, mn;
         
@@ -33,8 +33,8 @@ public class Main {
     public static void main(String[] args) {
 
         // loading the file
-        int fileSize = 20;
-        String filePath = "data.csv";
+        final int fileSize = 20;
+        final String filePath = "data.csv";
         Movies m1 = new Movies();
         m1.readFile(filePath, fileSize-1);
 
@@ -93,7 +93,7 @@ public class Main {
                         break;
                     case 6:
                         System.out.println("\nAll the available movies:");
-                        m1.displayAll();
+                        r.displayAll();
                         System.out.println("\nPick a movie number");
                         r.setRate(sc.nextInt());
                         break;
