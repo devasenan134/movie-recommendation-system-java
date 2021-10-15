@@ -8,7 +8,6 @@ import com.project.rating.Rating;
 import java.util.Scanner;
 
 
-
 public class Main {
 
     public static void viewRrate(Movies m1){
@@ -67,12 +66,12 @@ public class Main {
                         System.out.println("Bye!");
                         break;
                     case 1:
-                        System.out.println("\nTop 5 Most popular movies:");
+                        System.out.println("\nTop 6 Most popular movies:");
                         p1.displayPopular();
                         viewRrate(m1);
                         break;
                     case 2:
-                        System.out.println("\nTop 5 Recent Releases:");
+                        System.out.println("\nTop 6 Recent Releases:");
                         r1.dislayRecent();
                         viewRrate(m1);
                         break;
@@ -92,7 +91,7 @@ public class Main {
                         viewRrate(m1);
                         break;
                     case 6:
-                        System.out.println("\nAll the available movies:");
+                        System.out.println("\nAll the available movies for rating:");
                         r.displayAll();
                         System.out.println("\nPick a movie number");
                         r.setRate(sc.nextInt());
